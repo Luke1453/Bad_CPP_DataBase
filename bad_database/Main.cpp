@@ -257,11 +257,16 @@ void view_database() {
 		search_time_info.tm_year = search_year - 1900;
 		search_time_info.tm_mon = search_month - 1;
 		search_time_info.tm_mday = search_day;
+		search_time_info.tm_hour = 0;
+		search_time_info.tm_min = 0;
+		search_time_info.tm_sec = 0;
 		search_q = mktime(&search_time_info);
+
+		//cout << search_q + 86400 << endl;
 
 		for (const auto& entry : entry_map) {
 
-			if (search_q >= entry.second.service_time && search_q <= entry.second.service_time+ 86400)
+			if (search_q <= entry.first && entry.first <= search_q + 86400)
 			{
 #pragma warning(disable:4996)
 				cout << "Entry Time: " << asctime(localtime(&entry.second.service_time));// << endl;
